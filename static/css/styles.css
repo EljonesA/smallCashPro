@@ -1,0 +1,104 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    width: 340px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.flashes {
+	margin: 20px 0;
+	padding: 10px;
+	background-color: #f8d7da; /* Light red; color for error messages */
+	color: #721c24; /* Dark red; text color for error messages */
+	border: 1px solid #f5c6cb;
+	border-radius: 5px;
+	list-style: none;
+}
+
+
+.logo img {
+    width: 100px;  /* Adjusted size */
+/*    margin-bottom: 20px;*/
+}
+
+.brand-name {
+    font-size: 20px;
+    color: #333;  /* Subtle and professional */
+    margin-top: 10px;
+    font-weight: bold;  /* To make the brand name stand out */
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-icon {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.input-icon i {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    color: #aaa;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;  /* Smaller width for input fields */
+    padding: 8px 8px 8px 34px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto; /* Centers the input fields */
+}
+
+button {
+    width: 60%;
+    padding: 10px;
+    background-color: darkolivegreen;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px; /* Adds some space above the button */
+}
+
+button:hover {
+    background-color: #132e57;
+}
+
+.extra-links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.extra-links a {
+    display: block;
+    color: #333;
+    margin: 20px 0;
+    text-decoration: none;
+}
+
+.extra-links a:hover {
+    text-decoration: underline;
+}
