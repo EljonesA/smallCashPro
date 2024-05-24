@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!---Coding By CodingLab | www.codinglabweb.com--->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--<title>Registration Form in HTML CSS</title>-->
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
+  </head>
+  <body>
+    <section class="container">
+      <header>Registration Form</header>
+      <form action="/registration" method='POST' class="form">
+        <h4>Personal Details</h4>
+        <div class="column">
+          <div class="input-box">
+            <label>Full Name</label>
+            <input type="text" name="full_name" placeholder="Enter your name" />
+          </div>
+          <div class="input-box">
+            <label>Date of Birth</label>
+            <input type="date" name="dob" placeholder="Enter birth date" />
+          </div>
+        </div>
+
+        <div class="column">
+            <div class="input-box">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="Enter your email" />
+            </div>
+            <div class="input-box">
+              <label>Phone Number</label>
+              <input type="number" name="phone" placeholder="Enter phone number" />
+            </div>
+        </div>
+
+        <div class="gender-box">
+          <h3>Gender</h3>
+          <div class="gender-option">
+            <div class="gender">
+              <input type="radio" id="check-male" name="gender" checked />
+              <label for="check-male">male</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-female" name="gender" />
+              <label for="check-female">Female</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-other" name="gender" />
+              <label for="check-other">prefer not to say</label>
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+        <h4>Identity Details</h4>
+        <div class="column">
+            <div class="input-box">
+              <label>ID type</label>
+              <input type="text" name="id_type" placeholder="Enter ID type" />
+            </div>
+            <div class="input-box">
+              <label>ID Number</label>
+              <input type="number" name="id_number" placeholder="Enter ID number" />
+            </div>
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>Issued Place</label>
+            <input type="text" name="issued_place" placeholder="Enter ID issue place" />
+          </div>
+          <div class="input-box">
+            <label>Issued Date</label>
+            <input type="date" name="issued_date" placeholder="Enter ID issue date" />
+          </div>
+        </div>
+        <br><br>
+
+        <h4>Employment Information</h4>
+        <div class="column">
+          <div class="input-box">
+            <label>Employment Status</label>
+            <input type="text" name="employment_status" placeholder="Select employment status" />
+          </div>
+          <div class="input-box">
+            <label>Occupation</label>
+            <input type="text" name="occupation" placeholder="Enter your occupation" />
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>Employer Name</label>
+            <input type="text" name="employer_name" placeholder="Enter your current employer" />
+          </div>
+          <div class="input-box">
+            <label>Years with current Employer</label>
+            <input type="number" name="years_with_employer" placeholder="Enter years you've worked" />
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>Monthly Income</label>
+            <input type="number" name="monthly_income" placeholder="Your gross salary" />
+          </div>
+          <div class="input-box">
+            <!-- comment to have empty column in UI -->
+            <!-- <label>Years with current Employer</label>
+            <input type="number" placeholder="Enter years you've worked" /> -->
+          </div>
+        </div>
+
+        <div class="column">
+          <button type="button" onclick="window.location.href='/';">Cancel</button>
+        <button type="submit">Submit</button>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

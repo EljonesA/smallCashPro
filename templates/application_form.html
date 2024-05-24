@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>smallCashPro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application_form.css') }}">
+  </head>
+  <body>
+    <section class="container">
+      <p>Application Form</p>
+      <form action="{{ url_for('application_form') }}" method="POST" class="form">
+        <div class="input-box">
+          <label>Loan Type</label>
+          <select name="loan_type" id="loan-type">
+            <option value="" disabled selected>Select loan type</option>
+            <option value="Loan One">Loan One</option>
+            <option value="Loan One">Loan Two</option>
+          </select>
+        </div>
+
+        <div class="input-box">
+          <label>Loan Limit</label>
+          <input type="number" name="loan_limit" placeholder="" required />
+        </div>
+
+        <div class="input-box">
+            <label>Desired Loan</label>
+            <input type="number" name="desired_loan" placeholder="Amount applying for" required />
+        </div>
+
+        <div class="input-box">
+            <label>Repayment Period</label>
+            <select name="repayment_period" id="repayment-period">
+              <option value="" disabled selected>Repayment Duration</option>
+              <option value="30 days">30 days</option>
+              <option value="60 days">60 days</option>
+            </select>
+        </div>
+
+        <div class="input-box">
+            <label>Due Date</label>
+            <input type="date" name="due_date" placeholder="" required />
+        </div>
+
+        <div class="input-box">
+            <label>Interest Amount</label>
+            <input type="number" name="interest_amount" placeholder="" required />
+        </div>
+
+        <div class="input-box">
+            <label>Amount Due</label>
+            <input type="number" name="amount_due" placeholder="" required />
+        </div>
+
+        <div class="input-box">
+            <label>Loan Reason</label>
+            <select name="loan_reason" id="loan-type">
+              <option value="" disabled selected>Why you need the loan</option>
+              <option value="Supper">Supper</option>
+              <option value="Date">Date</option>
+              <option value="Sherehe Polite">Sherehe Polite</option>
+            </select>
+        </div>
+        
+        <button type="submit">Submit</button>
+        <button type="button">Cancel</button>      
+      </form>
+    </section>
+  </body>
+</html>

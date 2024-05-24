@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>smallCashPro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_two.css') }}">
+    <!-- Boxicons CSS -->
+    <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <header>
+	    <img src="{{ url_for('static', filename='images/lend_money.jpg') }}">
+	    <h2>smallCashPro</h2>
+    </header>
+
+    <div class="container">
+    <nav class="sidebar locked">
+      <div class="menu_container">
+        <div class="menu_items">
+          <ul class="menu_item">
+            <li class="item">
+              <a href="#" class="link flex" data-content-id="dashboard">
+                <i class="bx bx-home"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="#" class="link flex" data-content-id="application-form">
+                <i class="bx bx-edit"></i>
+                <span>Application Form</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="approved.html" class="link flex" data-content-id="approved-loans">
+                <i class="bx bx-check-circle"></i>
+                <span>Approved Loans</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="#" class="link flex" data-content-id="rejected-loans">
+                <i class="bx bx-error"></i>
+                <span>Rejected Loans</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="#" class="link flex" data-content-id="all-loans">
+                <i class="bx bx-check-circle"></i>
+                <span>All Loan Applications</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="#" class="link flex" data-content-id="settings">
+                <i class="bx bx-cog"></i>
+                <span>Setting</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content-area">
+      <!-- Dynamic content will load here -->
+    </main>
+  </div>
+
+	<script type="text/javascript">
+		const applicationFormUrl = "{{ url_for('application_form') }}";
+		const approvedLoansUrl = "{{ url_for('approved') }}";
+		const rejectedLoanUrl = "{{ url_for('rejected_loans') }}";
+		const allLoansUrl = "{{ url_for('all_loans') }}";
+		const settingsUrl = "{{ url_for('settings') }}";
+	</script>
+  <script src="{{ url_for('static', filename='js/home_two.js') }}"></script>
+  </body>
+</html>

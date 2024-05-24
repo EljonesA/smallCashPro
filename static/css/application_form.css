@@ -1,0 +1,73 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.container {
+  /* margin-top: 10px; */
+  width: 100%;
+  background: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.container p {
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
+  display: flex;
+  align-items: center;
+}
+
+.form .input-box {
+    display: flex; /* Flexbox to align label and input side by side */
+    align-items: center; /* Vertically align the contents of the flex container */
+    padding: 10px;
+    min-width: 120px;
+}
+.input-box label {
+  color: #333;
+  width: 30%; /* Fixed width for labels */
+  min-width: 120px; /* Ensuring labels don’t get too squished */
+}
+.form :where(.input-box input, select) {
+    /* format input fields */
+  position: relative;
+  height: 50px;
+  flex: 0 0 15%;
+  outline: none;
+  font-size: 1rem;
+  color: black;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+
+button {
+  height: 45px;
+  width: calc(30% - 20px); /* Adjust button width to occupy 30% of the container */
+  text-align: center;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: darkolivegreen;
+  border-radius: 6px;  
+}
+
+button:hover {
+  background: #132e57;
+}
+
+/*Responsive*/
+@media screen and (max-width: 500px) {
+  .form .input-box {
+    flex-wrap: wrap;
+  }
+}
