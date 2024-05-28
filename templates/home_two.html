@@ -34,7 +34,7 @@
               </a>
             </li>
             <li class="item">
-              <a href="approved.html" class="link flex" data-content-id="approved-loans">
+              <a href="#" class="link flex" data-content-id="approved-loans">
                 <i class="bx bx-check-circle"></i>
                 <span>Approved Loans</span>
               </a>
@@ -68,11 +68,13 @@
   </div>
 
 	<script type="text/javascript">
+		const dashboardUrl = "{{ url_for('dashboard') }}";
 		const applicationFormUrl = "{{ url_for('application_form') }}";
-		const approvedLoansUrl = "{{ url_for('approved') }}";
+		const approvedLoansUrl = "{{ url_for('approved_loans_report') }}";
 		const rejectedLoanUrl = "{{ url_for('rejected_loans') }}";
 		const allLoansUrl = "{{ url_for('all_loans') }}";
 		const settingsUrl = "{{ url_for('settings') }}";
+		const dashboardScriptUrl = "{{ url_for('static', filename='js/dashboard.js') }}";
 	</script>
   <script src="{{ url_for('static', filename='js/home_two.js') }}"></script>
   </body>

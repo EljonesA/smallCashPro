@@ -1,0 +1,96 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 10px;
+	background-color: #e1fbee;
+}
+
+.dashboard {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.summary {
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+}
+
+.summary-item {
+	flex: 1;
+	margin: 10px;
+	padding: 20px;
+	background-color: #fff;
+	text-align: center;
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	position: relative;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.summary-header {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #002855; /* Change this color as needed */
+	color: #fff;
+	padding: 5px 15px;
+	border-radius: 10px 10px 0 0;
+	font-weight: bold;
+}
+
+.summary-content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.summary-content i {
+	font-size: 2em;
+	margin-right: 10px; /* Adjust spacing between icon and value */
+}
+
+.summary-content .value {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.main-content {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.chart-container, .payments-due {
+	flex: 1;
+	margin: 10px;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.payments-due table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.payments-due table tr td {
+	padding: 8px;
+        border-bottom: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+	.summary-item {
+		flex: 1 1 100%;
+		margin: 10px 0;
+	}
+
+	.chart-container, .payments-due {
+		flex: 1 1 100%;
+		margin: 10px 0;
+	}
+}

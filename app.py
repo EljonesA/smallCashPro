@@ -162,6 +162,27 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    total_loans = session.query(LoanApplication).count()
+    approved_loans = session.query(LoanApplication).filter_by(status='Approved').count()
+    rejected_loans = session.query(LoanApplication).filter_by(status='Rejected').count()
+    pending_loans = session.query(LoanApplication).filter_by(status='Processing').count()
+
+    # testing values
+    approved_loans = 2;
+    rejected_loans = 1;
+
+    payments_due = session.query(LoanApplication).all()
+
+    loan_status_counts = {
+            'Approved': approved_loans,
+            'Rejected': rejected_loans,
+            'Pending': pending_loans
+    }
+
+    return render_template('dash.html', total_loans=total_loans, pending_loans=pending_loans,loan_status_counts=loan_status_counts, payments_due=payments_due)
 
 # render -> paths for navigation pages
 @app.route('/application_form', methods=['GET', 'POST'])
@@ -215,8 +236,11 @@ def application_form():
     return render_template('application_form.html')
 
 @app.route('/approved')
-def approved():
-    return render_template('approved.html')
+@login_required
+def approved_loans_report():
+    # query db for approved loans
+    approved_loans = session.query(LoanApplication).filter_by(status='Processing').all()
+    return render_template('approved_loans_report.html', loans=approved_loans)
 
 @app.route('/rejected_loans')
 def rejected_loans():
@@ -228,6 +252,7 @@ def all_loans():
 
 @app.route('/settings')
 def settings():
+    print("Here in the settings section")
     return render_template('settings.html')
 
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Approved Loans Report</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/approved_report.css') }}">
+</head>
+<body>
+	<p>Approved Loans</p>
+	<table>
+		<thead>
+		<tr>
+			<th>Loan Type</th>
+			<th>Application Date</th>
+			<th>Amount Due</th>
+			<th>Due Date</th>
+		</tr>
+		</thead>
+		<tbody>
+			{% for loan in loans %}
+			<tr onclick="toggleDetails('details-{{ loan.id }}')">
+				<td>{{ loan.loan_type }}</td>
+				<td>{{ loan.application_date.strftime('%Y-%m-%d') }}</td>
+				<td>{{ loan.amount_due }}</td>
+				<td>{{ loan.due_date.strftime('%Y-%m-%d') }}</td>
+			</tr>
+			<tr id="details-{{ loan.id }}" class="details">
+				<td colspan="4">
+					<div class="details-row"><strong>Loan Type:</strong> <span>{{ loan.loan_type }}</span></div>
+					<div class="details-row"><strong>Loan Limit:</strong> <span>{{ loan.loan_limit }}</span></div>
+					<div class="details-row"><strong>Desired Loan:</strong> <span>{{ loan.desired_loan }}</span></div>
+					<div class="details-row"><strong>Repayment Period:</strong> <span>{{ loan.repayment_period }}</span></div>
+					<div class="details-row"><strong>Due Date:</strong> <span>{{ loan.due_date.strftime('%Y-%m-%d') }}</span></div>
+					<div class="details-row"><strong>Interest Amount:</strong> <span>{{ loan.interest_amount }}</span></div>
+					<div class="details-row"><strong>Amount Due:</strong> <span>{{ loan.amount_due }}</span></div>
+					<div class="details-row"><strong>Loan Reason:</strong> <span>{{ loan.loan_reason }}</span></div>
+					<div class="details-row"><strong>Application Date:</strong> <span>{{ loan.application_date.strftime('%Y-%m-%d') }}</span></div>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<!-- Added this for separate testing. Not needed -->
+	<script src="{{ url_for('static', filename='js/approved_report.js') }}"></script>
+</body>
+</html>

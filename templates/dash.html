@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="summary">
+            <div class="summary-item" id="total-loans">
+		    <div class="summary-header">Total Loans</div>
+		    <div class="summary-content">
+			    <i class="bx bx-money"></i>
+			    <span class="value">{{ total_loans }}</span>
+		    </div>
+	    </div>
+            <div class="summary-item" id="outstanding-amount">
+		    <div class="summary-header">Outstanding</div>
+		    <div class="summary-content">
+			    <i class="bx bx-dollar"></i>
+			    <span class="value">4550</span>
+		    </div>
+	    </div>
+            <div class="summary-item" id="pending-applications">
+		    <div class="summary-header">Pending</div>
+		    <div class="summary-content">
+			    <i class="bx bx-time-five"></i>
+			    <span class="value">{{ pending_loans }}</span>
+		    </div>
+	    </div>
+        </div>
+        <div class="main-content">
+            <div class="chart-container">
+                <canvas id="doughnutChart"></canvas>
+            </div>
+            <div class="payments-due">
+                <h3>Payments Due</h3>
+                <table>
+                    <tbody>
+			    {% for payment in payments_due %}
+			    <tr>
+				    <td>{{ payment.due_date.strftime('%Y-%m-%d') }}</td>
+				    <td>{{ payment.loan_type }}</td>
+				    <td>{{ payment.amount_due }}</td>
+			    </tr>
+			    {% endfor %}
+                        <!-- Additional rows can be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
