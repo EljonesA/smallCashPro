@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from sqlalchemy import create_engine, Column, String, Integer, Date, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime, timedelta
+import time
 
 
 app = Flask(__name__)
@@ -170,11 +171,7 @@ def dashboard():
     rejected_loans = session.query(LoanApplication).filter_by(status='Rejected').count()
     pending_loans = session.query(LoanApplication).filter_by(status='Processing').count()
 
-    # testing values
-    approved_loans = 2;
-    rejected_loans = 1;
-
-    payments_due = session.query(LoanApplication).all()
+    payments_due = session.query(LoanApplication).limit(5).all()
 
     loan_status_counts = {
             'Approved': approved_loans,
@@ -213,25 +210,14 @@ def application_form():
                 loan_reason=loan_reason,
                 status='Processing'
             )
-        print('user_id: ', new_application.user_id)
-        print('desired_amount:', new_application.desired_loan)
-        print('loan_type', new_application.loan_type)
-        print('limit:', new_application.loan_limit)
-        print('repayment period:', new_application.repayment_period)
-        print('interest:', new_application.interest_amount)
-        print('amount due:', new_application.amount_due)
-        print('reason:', new_application.loan_reason)
-        print('status:', new_application.status)
-        print('Due date:', due_date)
         try:
             session.add(new_application)
-            session.commit()
-            print("Added successfuly")
-            flash('Loan application submitted successfully')
+            session.commit() 
+            flash('Loan application submitted successfully', 'success')
         except Exception as e:
             session.rollback()
-            print("Failed to add: ", e)
-            flash('Failed to submit loan application.')
+            flash('Failed to submit loan application.', 'error')
+        
         return redirect(url_for('home'))
     return render_template('application_form.html')
 
@@ -244,11 +230,14 @@ def approved_loans_report():
 
 @app.route('/rejected_loans')
 def rejected_loans():
-    return render_template('rejected.html')
+    # query db for rejected loans
+    rejected_loans = session.query(LoanApplication).filter_by(status='Processing').all()
+    return render_template('rejected_report.html', loans=rejected_loans)
 
 @app.route('/all_loans')
 def all_loans():
-    return render_template('all_loans.html')
+    all_loans = session.query(LoanApplication).all()
+    return render_template('all_loans_report.html')
 
 @app.route('/settings')
 def settings():

@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+	// load dashboard content by default
+	loadContent(dashboardUrl, contentArea, true);
 });
 
 function loadContent(url, container, loadDashboardJS = false) {

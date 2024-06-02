@@ -6,6 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>smallCashPro</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/application_form.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <style>
+	.flash-message {
+		padding: 15px;
+		margin-bottom: 20px;
+		border: 1px solid transparent;
+		border-radius: 4px;
+		text-align: center;
+		display: none; /* Initially hidden */
+	}
+	.flash-success {
+		color: #3c763d;
+		background-color: #dff0d8;
+		border-color: #d6e9c6;
+	}
+	.flash-error {
+		color: #a94442;
+		background-color: #f2dede;
+		border-color: #ebcc;
+	}
+    </style>
   </head>
   <body>
     <section class="container">
@@ -41,7 +62,7 @@
 
         <div class="input-box">
             <label>Due Date</label>
-            <input type="date" name="due_date" placeholder="" required />
+            <input type="text" name="due_date" placeholder="" required />
         </div>
 
         <div class="input-box">
@@ -68,5 +89,36 @@
         <button type="button">Cancel</button>      
       </form>
     </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript">
+	    document.addEventListener('DOMContentLoaded', function() {
+		    toastr.options = {
+			    "closeButton": true,
+			    "debug": false,
+			    "newestOnTop": true,
+			    "progressBar": true,
+			    "positionClass": "toast-top-right",
+			    "preventDuplicates": false,
+			    "onclick": null,
+			    "showDuration": "300",
+			    "hideDuration": "1000",
+			    "timeOut": "5000",
+			    "extendedTimeOut": "1000",
+			    "showEasing": "swing",
+			    "hideEasing": "linear",
+			    "showMethod": "fadeIn",
+			    "hideMethod": "fadeOut"
+		    };
+		    {% with messages = get_flashed_messages(with_categories=true) %}
+		    	{% if messages %}
+		    		{% for category, message in messages %}
+		    			toastr.{{ category }}('{{ message }}');
+		    		{% endfor %}
+		    	{% endif %}
+		    {% endwith %}
+	    });
+    </script>
   </body>
 </html>
