@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - smallCashPro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+	    <a href="{{ url_for('landing') }}">Home</a>
+	    <a href="{{ url_for('features') }}">Features</a>
+        <form action="{{ url_for('login') }}" method="GET" style="display: inline;">
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="section">
+            <h2>About Us</h2>
+	    <p>smallCashPro is dedicated to providing quick and convenient loan solutions to help you meet your financial needs. Our user-friendly platform ensures a hassle-free experience, from application to repayment.</p>
+	    <p>We believe in transparency, security, and customer satisfaction. Our team of experts is committed to offering personalized support and guidance throughout your loan journey. Join us and experience the difference with smallCashPro.</p><br>
+	    
+	    <div class="social-media">
+		    <h3>Follow Us</h3>
+		    <a href="https://github.com/EljonesA" target="_blank" class="social-link"><i class="fab fa-github"></i> Github</a>
+		    <a href="https://x.com/home?lang=en/eljones_ke" target="_blank" class="social-link"><i class="fab fa-twitter"></i> Twitter</a>
+		    <a href="https://www.linkedin.com/in/eljones-odongo/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+	    </div>
+	    <img src="{{ url_for('static', filename='images/team.jpeg') }}" alt="Our Team" style="width: 100%; height: auto; border-radius: 10px;">
+        </div>
+    </div>
+</body>
+</html>

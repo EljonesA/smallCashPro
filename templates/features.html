@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - smallCashPro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/features.css') }}">
+</head>
+<body>
+    <div class="navbar">
+	    <a href="{{ url_for('landing') }}">Home</a>
+	    <a href="{{ url_for('about') }}">About</a>
+        <form action="{{ url_for('login') }}" method="GET" style="display: inline;">
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+    <div class="container">
+        <div class="section">
+            <h2>Features</h2>
+            <div class="feature-item">
+		    <img src="{{ url_for('static', filename='images/easy_apply.jpeg') }}" alt="Easy Application">
+                <div>
+                    <h3>Easy Loan Application</h3>
+                    <p>Apply for loans quickly and easily through our streamlined online application process.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+		    <img src="{{ url_for('static', filename='images/approve.jpeg') }}" alt="Quick Approval">
+                <div>
+                    <h3>Quick Approval</h3>
+                    <p>Get your loan approved in no time with our efficient processing system.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+		    <img src="{{ url_for('static', filename='images/secure.jpeg') }}" alt="Secure Platform">
+                <div>
+                    <h3>Secure Platform</h3>
+                    <p>Your personal information and data are protected with industry-standard security measures.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+		    <img src="{{ url_for('static', filename='images/payment.jpeg') }}" alt="Flexible Repayments">
+                <div>
+                    <h3>Flexible Repayments</h3>
+                    <p>Choose from a variety of repayment plans that suit your financial situation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

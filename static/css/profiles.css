@@ -1,0 +1,82 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+.header {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+.profile-pic {
+    text-align: center;
+    margin-top: 20px;
+}
+.profile-pic img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+.profile-pic input {
+    display: none;
+}
+.profile-pic label {
+    display: inline-block;
+    margin-top: 10px;
+    background: #132e57;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.profile-details {
+    margin-top: 20px;
+}
+.profile-details .detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.profile-details .detail-item label {
+    font-weight: bold;
+}
+.profile-details .detail-item input,
+.profile-details .detail-item select {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px;
+    width: 60%;
+}
+.btn-group {
+    text-align: center;
+    margin-top: 20px;
+}
+.btn-group button {
+    background: #132e57;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-group button.cancel {
+    background: #e0e0e0;
+    color: #000;
+}

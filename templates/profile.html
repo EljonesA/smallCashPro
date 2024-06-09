@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profiles.css') }}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .profile-pic {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .profile-pic img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .profile-pic input {
+            display: none;
+        }
+        .profile-pic label {
+            display: inline-block;
+            margin-top: 10px;
+            background: #132e57;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .profile-details {
+            margin-top: 20px;
+        }
+        .profile-details .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .profile-details .detail-item label {
+            font-weight: bold;
+        }
+        .profile-details .detail-item input, .profile-details .detail-item select {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 8px;
+            width: 60%;
+        }
+        .btn-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn-group button {
+            background: #132e57;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-group button.cancel {
+            background: #e0e0e0;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>User Profile</h1>
+        </div>
+        <div class="profile-pic">
+            <img src="{{ user_profile_picture_url }}" alt="Profile Picture">
+            <input type="file" id="profile-pic-upload" name="profile_pic" accept="image/*">
+            <label for="profile-pic-upload">Change Picture</label>
+        </div>
+        <form action="{{ url_for('update_profile') }}" method="POST" enctype="multipart/form-data">
+            <div class="profile-details">
+                <div class="detail-item">
+                    <label for="full_name">Full Name:</label>
+                    <input type="text" id="full_name" name="full_name" value="{{ user_details.full_name }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" value="{{ user_details.dob }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" value="{{ user_details.phone }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="Male" {{ 'selected' if user_details.gender == 'Male' else '' }}>Male</option>
+                        <option value="Female" {{ 'selected' if user_details.gender == 'Female' else '' }}>Female</option>
+                        <option value="Other" {{ 'selected' if user_details.gender == 'Other' else '' }}>Other</option>
+                    </select>
+                </div>
+                <div class="detail-item">
+                    <label for="id_type">ID Type:</label>
+                    <input type="text" id="id_type" name="id_type" value="{{ user_details.id_type }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="id_number">ID Number:</label>
+                    <input type="text" id="id_number" name="id_number" value="{{ user_details.id_number }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="issued_place">Issued Place:</label>
+                    <input type="text" id="issued_place" name="issued_place" value="{{ user_details.issued_place }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="issued_date">Issued Date:</label>
+                    <input type="date" id="issued_date" name="issued_date" value="{{ user_details.issued_date }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="employment_status">Employment Status:</label>
+                    <input type="text" id="employment_status" name="employment_status" value="{{ user_details.employment_status }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="occupation">Occupation:</label>
+                    <input type="text" id="occupation" name="occupation" value="{{ user_details.occupation }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="employer_name">Employer Name:</label>
+                    <input type="text" id="employer_name" name="employer_name" value="{{ user_details.employer_name }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="years_with_employer">Years with Employer:</label>
+                    <input type="number" id="years_with_employer" name="years_with_employer" value="{{ user_details.years_with_employer }}" required>
+                </div>
+                <div class="detail-item">
+                    <label for="monthly_income">Monthly Income:</label>
+                    <input type="number" id="monthly_income" name="monthly_income" value="{{ user_details.monthly_income }}" required>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="submit">Save Changes</button>
+                <button type="button" class="cancel" onclick="window.location.href='{{ url_for('home') }}'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

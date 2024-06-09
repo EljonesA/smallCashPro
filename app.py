@@ -4,11 +4,14 @@ from sqlalchemy import create_engine, Column, String, Integer, Date, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime, timedelta
-import time
+from flask_mail import Mail, Message
+import os
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'my_secret_key'
+app.config['UPLOAD_FOLDER'] = '/home/eljones/smallCashPro/static/images'
 
 # Database configuration
 sql_connection = 'mysql+mysqldb://jones:passwd@localhost/CREDENTIALS'
@@ -19,6 +22,14 @@ Base = declarative_base()
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+# Mail configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'eljones.odongo@gmail.com'
+app.config['MAIL_PASSWORD'] = 'llas lfnw osjd iaob'
+mail = Mail(app)
 
 # User model definitions
 # credentials model
@@ -75,7 +86,8 @@ Base.metadata.create_all(engine)
 def load_user(user_id):
     return session.query(User).get(int(user_id))
 
-@app.route('/', methods=['GET', 'POST'])
+# login route and function
+#@app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -89,6 +101,7 @@ def login():
             flash('Invalid credentials')
     return render_template('login.html')
 
+# signup route & function
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -106,6 +119,7 @@ def signup():
             return redirect(url_for('registration'))
     return render_template('signup.html')
 
+# User Registration form
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     if request.method == 'POST':
@@ -152,17 +166,35 @@ def registration():
             flash('User not found')
     return render_template('registration.html')
 
+# app landing page
+@app.route('/')
+def landing():
+    return render_template('landing.html')
+
+# render landing/features page
+@app.route('/features')
+def features():
+    return render_template('features.html')
+
+# render lamding/about page
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+# app home page after login
 @app.route('/home')
 @login_required
 def home():
     return render_template('home_two.html')
 
+# handle user logout
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
+# dashboard page route, function & logic
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -182,7 +214,9 @@ def dashboard():
     return render_template('dash.html', total_loans=total_loans, pending_loans=pending_loans,loan_status_counts=loan_status_counts, payments_due=payments_due)
 
 # render -> paths for navigation pages
+# nav bar - application form handling & logic
 @app.route('/application_form', methods=['GET', 'POST'])
+@login_required
 def application_form():
     if request.method == 'POST':
         loan_type = request.form['loan_type']
@@ -213,6 +247,41 @@ def application_form():
         try:
             session.add(new_application)
             session.commit() 
+
+            # send email notification to the admin
+            # retrieve applicant details
+            applicant_details = session.query(UserDetails).filter_by(user_id=current_user.id).first()
+
+            msg = Message(
+                    subject="New Loan Application",
+                    sender=app.config['MAIL_USERNAME'],
+                    recipients=["eljones.odongo@gmail.com"]
+                    )
+            msg.html = f"""
+            <div style="background-color: #f0f0f0; border: 1px solid #d0d0d0; padding: 20px;">
+                <p>A new loan application has been submitted. Log into <a href="#" style="color: #132e57; text-decoration: none; font-weight: bold;">smallCashPro</a> to review and approve / reject the application.</p>
+
+                <h3>Applicant Details:</h3>
+                <ul>
+                    <li><strong>Full Name:</strong> {applicant_details.full_name}</li>
+                    <li><strong>Monthly Income:</strong> {applicant_details.monthly_income}</li>
+                </ul>
+
+                <h3>Loan Application Details:</h3>
+                    <ul>
+                        <li><strong>Loan Type:</strong> {loan_type}</li>
+                        <li><strong>Loan Limit:</strong> {loan_limit}</li>
+                        <li><strong>Desired Loan:</strong> {desired_loan}</li>
+                        <li><strong>Interest Amount:</strong> {interest_amount}</li>
+                        <li><strong>Loan Reason:</strong> {loan_reason}</li>
+                    </ul>
+
+                    <footer style="background-color: #132e57; color: white; text-align: center; padding: 10px; margin-top: 20px;">
+                        smallCashPro &copy; 2024
+                    </footer>
+                </div>
+            """
+            mail.send(msg)
             flash('Loan application submitted successfully', 'success')
         except Exception as e:
             session.rollback()
@@ -221,6 +290,7 @@ def application_form():
         return redirect(url_for('home'))
     return render_template('application_form.html')
 
+# nav bar - approved report logic
 @app.route('/approved')
 @login_required
 def approved_loans_report():
@@ -228,23 +298,55 @@ def approved_loans_report():
     approved_loans = session.query(LoanApplication).filter_by(status='Processing').all()
     return render_template('approved_loans_report.html', loans=approved_loans)
 
+# nav bar - rejected report logic
 @app.route('/rejected_loans')
 def rejected_loans():
     # query db for rejected loans
     rejected_loans = session.query(LoanApplication).filter_by(status='Processing').all()
     return render_template('rejected_report.html', loans=rejected_loans)
 
+# nav bar - all loans report logic
 @app.route('/all_loans')
 def all_loans():
     all_loans = session.query(LoanApplication).all()
     return render_template('all_loans_report.html')
 
+# nav bar - settings logic
 @app.route('/settings')
 def settings():
-    print("Here in the settings section")
-    return render_template('settings.html')
+    user_details = session.query(UserDetails).filter_by(user_id=current_user.id).first()
+
+    if request.method == 'POST':
+        user_details.full_name = request.form['full_name']
+        user_details.dob = request.form['dob']
+        user_details.phone = request.form['phone']
+        user_details.gender = request.form['gender']
+        User_details.id_type = request.form['id_type']
+        user_details.id_number = request.form['id_number']
+        user_details.issued_place = request.form['issued_place']
+        user_details.issued_date = request.form['issued_date']
+        user_details.employment_status = request.form['employment_status']
+        user_details.occupation = request.form['occupation']
+        user_details.employer_name = request.form['employer_name']
+        user_details.years_with_employer = request.form['years_with_employer']
+        user_details.monthly_income = request.form['monthly_income']
+
+        # Handle profile picture update
+        if 'profile_pic' in request.files:
+            profile_pic = request.files['profile_pic']
+            if profile_pic.filename != '':
+                profile_pic_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(profile_pic.filename))
+                profile_pic.save(profile_pic_path)
+                user_details.profile_pic = profile_pic_path
+
+        session.commit()
+        flash('Profile updated successfully', 'success')
+        return redirect(url_for('settings'))
+
+    user_profile_picture_url = url_for('static', filename=user_details.profile_pic) if user_details.profile_pic else url_for('static', filename='default_profile.png')
+    return render_template('profile.html')
 
 
-
+# app entry point
 if __name__ == '__main__':
     app.run(debug=True)
