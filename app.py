@@ -255,7 +255,7 @@ def application_form():
             msg = Message(
                     subject="New Loan Application",
                     sender=app.config['MAIL_USERNAME'],
-                    recipients=["eljones.odongo@gmail.com"]
+                    recipients=["your_admin_email@gmail.com"]
                     )
             msg.html = f"""
             <div style="background-color: #f0f0f0; border: 1px solid #d0d0d0; padding: 20px;">
